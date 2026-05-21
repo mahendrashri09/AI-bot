@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "incident": "Pod crashing with OOMKilled error",
+    "resolution": "Set resources.limits.memory in deployment YAML to prevent memory overuse."
+  },
+  {
+    "id": "2",
+    "incident": "Database connection timeout in payment-service",
+    "resolution": "Increase DB connection pool size and check network latency."
+  },
+  {
+    "id": "3",
+    "incident": "High CPU usage causing node crash",
+    "resolution": "Add CPU limits to containers and enable autoscaling."
+  },
+  {
+  "id": "incident-101",
+  "incident": "Database connection timeout on service payments",
+  "resolution": "Restarted database pod, increased connection pool size, added retry logic in service",
+  "service_name": "payments",
+  "severity": "high",
+  "tags": ["database", "connectivity", "production"]
+}
+]
+
