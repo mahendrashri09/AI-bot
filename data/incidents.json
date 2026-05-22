@@ -1,0 +1,7 @@
+[
+  {
+    "id":"1",
+    "incident":"Database timeout",
+    "resolution":"Increase connection pool"
+  }
+]

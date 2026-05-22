@@ -1,21 +1,60 @@
 import streamlit as st
-from copilot import init_vector_db, query_copilot
 
-st.set_page_config(page_title="AI Incident Copilot", layout="centered")
+from ui.uploader import get_logs
 
-st.title("🤖 AI Incident Copilot")
-st.write("Paste your logs or incident description below and let AI help you debug!")
+from core.incident_engine import analyze
 
-log_input = st.text_area("🔎 Paste Logs / Incident Description", height=200)
+from core.report_generator import save
 
-if "collection" not in st.session_state:
-    st.session_state.collection = init_vector_db()
 
-if st.button("Analyze Incident"):
-    if log_input.strip():
-        with st.spinner("Analyzing with Copilot..."):
-            result = query_copilot(log_input, st.session_state.collection)
-        st.success("✅ Copilot Suggestion")
-        st.write(result)
-    else:
-        st.warning("Please paste some logs first!")
+st.set_page_config(
+    page_title=
+    "AI Incident Copilot"
+)
+
+st.title(
+    "AI Incident Copilot"
+)
+
+logs = (
+    get_logs()
+)
+
+if st.button(
+    "Analyze"
+):
+
+    if logs:
+
+        with st.spinner():
+
+            result = (
+                analyze(
+                    logs
+                )
+            )
+
+        st.success(
+            "Done"
+        )
+
+        st.write(
+            result
+        )
+
+        file = (
+            save(
+                result
+            )
+        )
+
+        with open(
+            file
+        ) as f:
+
+            st.download_button(
+                "Download Report",
+                f,
+                file_name=
+                "incident_report.txt"
+            )
